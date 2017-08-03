@@ -1,0 +1,15 @@
+Token	Lexema	Padrão	REGEX	Descrição
+EOL	;	Símbolo ;	;	final de instrução
+CLOSE	)	Símbolo )	)	final de expressão
+OPEN	(	Símbolo (	(	inicio de expressão
+EQ	=	Símbolo =	=	operador de atribuição
+ID	aluno2017	Qualquer sequencia de letras e números que comece com uma letra	[a-zA-Z][a-zA-Z0-9\_\-]*	identificador de tabelas ou colunas
+INSERT	insert	palavra insert em caixa alta ou baixa	[iI][nN][sS][eE][rR][tT]	Palavra chave
+INTO	into	palavra into em caixa alta ou baixa	[iN][nN][tT][oO]	Palavra chave
+NUMBER	20 ou 20.5	qualquer número inteiro ou real com o ponto como separador decimal	(([+-]?[\d]+)(\.[\d]+)?)|(\.[\d]+)	Valor de atribuição
+COMMA	,	Símbolo ,	,	Separador de colunas ou atribuições
+SET	set	palavra set em caixa alta ou baixa	[sS][eE][tT]	Palavra chave
+STRING	'um texto’	qualquer sequência de símbolos delimitados por aspas simples	[^'\n]*	Representação de uma cadeia de caracteres
+UPDATE	update	palavra update em caixa alta ou baixa	[uU][pP][aA][dD][aA][tT][eE]	Palavra chave
+VALUES	values	palavra values em caixa alta ou baixa	[vV][aA][lL][uU][eE][sS]	Palavra chave
+WHERE	where	palavra where em caixa alta ou baixa	[wW][hH][eE][rR][eE]	Palavra chave
