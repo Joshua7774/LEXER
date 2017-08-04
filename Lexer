@@ -1,4 +1,7 @@
+package buffer;
+
 import java.io.IOException;
+import static java.time.Clock.system;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -10,79 +13,157 @@ import java.util.regex.Pattern;
  *
  *  @author William, Murillo e Tutão 
  */
-
-class Token<T>{
-    String nome_token;
-    T valor;
+class Tokens{
     
-    public Token(String name, T valor){
-        this.nome_token = name;
+    private String nome_token;
+    private String descricao;    
+    String valor;
+    
+    public Tokens(String nome_token, String descricao, String valor)
+    {
+        this.nome_token = nome_token;
+        this.descricao = descricao;
         this.valor = valor;
     }
+    
+    
+    public void setNome_token(String nome_token)
+    {
+        this.nome_token = nome_token;        
+    }
+    public void setDescricao(String descricao)
+    {
+        this.descricao = descricao;        
+    }
+    
+    public String getNome_Token()
+    {
+        return this.nome_token;
+    }
+    public String getDescricao()
+    {
+        return this.descricao;
+    }
+    
 }
 
-public class Lexer {
+public class Lexer{
     
-    public Token analise(String palavra)
+    public Tokens analise(String palavra)
     {
-        Token token = null;        
+        Tokens token = null;    
+
+        
         if(palavra.equals(";"))
-            token = new Token("<EOL>", 0);
+        {
+            token = SymbolTable.Valores(251);
+            token.valor = " - ";            
+        }
+
 
         else if(palavra.equals("="))
-            token = new Token("<EQUALS>", 0);            
+        {
+            token = SymbolTable.Valores(252);
+            token.valor = " - ";             
+        }
+          
 
         else if(palavra.equalsIgnoreCase("INSERT"))
-            token = new Token("<INSERT>", 0);
+        {
+            token = SymbolTable.Valores(253);
+            token.valor = " - ";                  
+        }
+
         
         else if(palavra.equals("("))
-            token = new Token("<OPEN>", 0); 
+        {
+            token = SymbolTable.Valores(254);
+            token.valor = " - ";                 
+        }
+            
         
         else if(palavra.equals(")"))
-            token = new Token("<CLOSE>", 0);  
+        {
+            token = SymbolTable.Valores(255);
+            token.valor = " - ";              
+        }
+            
         
         else if(palavra.equalsIgnoreCase("WHERE"))
-            token = new Token("<WHERE>", 0);       
+        {
+            token = SymbolTable.Valores(256);
+            token.valor = " - ";                 
+        }
+           
         
         else if(palavra.equalsIgnoreCase("UPDATE"))
-            token = new Token("<UPDATE>", 0);    
-
+        {
+            token = SymbolTable.Valores(257);
+            token.valor = " - ";              
+        }
+           
         else if(palavra.equalsIgnoreCase("INTO"))
-            token = new Token("<INTO>", 0);   
+        {
+            token = SymbolTable.Valores(258);
+            token.valor = " - ";                 
+        }
+            
         
         else if(palavra.equalsIgnoreCase("SET"))
-            token = new Token("<SET>", 0);  
-        
+        {
+            token = SymbolTable.Valores(259);
+            token.valor = " - ";              
+        }
+           
         else if(palavra.equalsIgnoreCase("VALUES"))
-            token = new Token("<VALUES>", 0);   
-        
-        else if(palavra.equalsIgnoreCase("WHERE"))
-            token = new Token("<WHERE>", 0);    
+        {
+            token = SymbolTable.Valores(260);
+            token.valor = " - ";                  
+        }
+           
         
         else if(palavra.matches("^'{1}.*'$"))
-            token = new Token("<STRING>", palavra);
+        {
+            token = SymbolTable.Valores(261);
+            token.valor = palavra;              
+        }
+           
         
         else if(palavra.matches("[+,-]?[0-9]+([\\.][0-9]+)?"))
         {
-            token = new Token("<NUM>", 0);
+            token = SymbolTable.Valores(262);
+            token.valor = palavra;            
         }
         else if(palavra.matches("[a-zA-Z]+\\w*"))
         {
-            token = new Token("<ID>", null);
+            token = SymbolTable.Valores(263);
+            token.valor = palavra;               
         }
         else if(palavra.equalsIgnoreCase("+"))
-            token = new Token("<PLUS>", 0);
+        {
+            token = SymbolTable.Valores(264);
+            token.valor = " - ";             
+        }
+            
         else if(palavra.equals(","))
-            token = new Token("<COMMA>", 0);  
+        {
+            token = SymbolTable.Valores(265);
+            token.valor = " - ";            
+        }
+        else
+        {
+            System.out.println("Simbolo inesxistente: " + palavra);
+            System.exit(-1);
+            
+        }
+        
+
+            
             
         return token;    
     }
     
-     public static void main(String[] args) throws IOException {
-         Lexer lex = new Lexer();
-         
-         System.out.println(lex.analise(";").nome_token);
-     }
+     
     
     
     
