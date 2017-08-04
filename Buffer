@@ -1,7 +1,9 @@
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+package buffer;
+
+
+
 import java.io.IOException;
+import java.util.ArrayList;
 
 
 
@@ -14,25 +16,20 @@ public class Buffer {
 
     int pos = 0;
     final String EOL = ";";
+    ArrayList<String> palavras = new ArrayList<String>();
     
-        public static void main(String[] args) throws IOException {
-        Lexer lex = new Lexer();
-         
-         System.out.println(lex.analise("+").nome_token);
-    }
-       public String Buffer(String codObjt, int pos){
+    public String Buffer(String codObjt, int pos){
 
         String arqaux = "";
         char lookAhead  = ' ';
-        int aux = 0;
         for(int i = pos;i<codObjt.length() ;i++){
-
+            
             arqaux += codObjt.charAt(i);
             
             
             if (arqaux.contains(EOL)) {
                 
-                System.out.println(arqaux);              
+             
                 if(i != codObjt.length()-1)
                 {
                     this.pos++;
@@ -40,6 +37,7 @@ public class Buffer {
                 
                 
                 }
+                palavras.add(arqaux);
                 return arqaux ;
             }
             else{
@@ -50,18 +48,26 @@ public class Buffer {
             {
                 this.pos = i + 2;
                 
-                System.out.println(arqaux + '\n');
                 this.Buffer(codObjt, this.pos);
+                palavras.add(arqaux);                
                 return arqaux;
                 
                               
             }
-            else if (lookAhead == ';')
+            else if (lookAhead == ';' || lookAhead == ')' || lookAhead == ',' || lookAhead == '(' )
             {
                 this.pos = i+1;
-                
-                System.out.println(arqaux + '\n');
                 this.Buffer(codObjt, this.pos);                
+                palavras.add(arqaux);                
+                return arqaux ;
+                
+                              
+            }
+            else if (arqaux.contains("(") || arqaux.contains(","))
+            {
+                this.pos = i+1;
+                this.Buffer(codObjt, this.pos);                
+                palavras.add(arqaux);                
                 return arqaux ;
                 
                               
